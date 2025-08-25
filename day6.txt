@@ -1,0 +1,84 @@
+[8924:15644:0722/182905.674:VERBOSE1:chrome\updater\win\installer\installer.cc:494] "C:\Users\PARAM\Downloads\ChromeSetup.exe" --install=appguid={8A69D345-D564-463C-AFF1-A69D9E530F96}&iid={73A44F24-45EC-E932-6196-71BDFE63A408}&lang=en-GB&browser=5&usagestats=1&appname=Google%20Chrome&needsadmin=prefers&ap=x64-statsdef_1&brand=GGRF&installdataindex=empty --enable-logging --vmodule=*/components/winhttp/*=1,*/components/update_client/*=2,*/chrome/enterprise_companion/*=2,*/chrome/updater/*=2
+[8924:15644:0722/183008.725:VERBOSE1:chrome\updater\win\installer\installer.cc:611] Metainstaller WMain returning: 0
+#3sum leetcode:15
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+
+            int left = i + 1, right = nums.length - 1;
+            while (left < right) {
+                int total = nums[i] + nums[left] + nums[right];
+                if (total == 0) {
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+                    left++;
+                    right--;
+                } else if (total < 0) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return res;
+    }
+}
+#sort colors leetcode:75
+class Solution {
+    public void sortColors(int[] nums) {
+        int low=0;
+        int mid=0;
+        int high=nums.length-1;
+        while(mid<=high)
+        {
+        if(nums[mid] == 0)
+        {
+            int temp=nums[mid];
+            nums[mid]=nums[low];
+            nums[low]=temp;
+            low++;
+            mid++;
+        }else if(nums[mid] == 1)
+        {
+            mid++;
+        }else
+        {
+            int temp=nums[mid];
+            nums[mid]=nums[high];
+            nums[high]=temp;
+            high--;
+        }
+        }
+    }
+}
+#longest consecutive sequence leetcode:128
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        HashSet<Integer> set=new HashSet<>();
+        for(int x:nums){
+            set.add(x);
+        }
+        int maxLen=0;
+        for(Integer x:set){
+            int val=x.intValue();
+            int ctr=0;
+            int currEle=x;
+            if(!set.contains(currEle-1)){
+                while(set.contains(currEle)){
+                    ctr++;
+                    currEle++;
+                }
+                if(ctr>=maxLen){
+                    maxLen=ctr;
+                }
+            }
+        }
+        return maxLen;
+    }
+}
